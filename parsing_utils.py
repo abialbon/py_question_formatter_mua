@@ -37,7 +37,7 @@ def is_answer(line):
 
 
 def strip_choice_text(line):
-    p = r'\A\*?\(?.?\)+\.?'
+    p = r'\A\*?\(?([A-Z]\))?\.?'
     strip_text = re.sub(p, '', line, count=1).strip()
     return strip_text
 
@@ -62,14 +62,14 @@ def q_roll_generator(n):
 
 
 def strip_stem_text(line):
-    p = r'\A.+\.{1}'
+    p = r'\A.{1,3}?\.{1}'
     strip_text = re.sub(p, '', line, count=1).strip()
     return strip_text
 
 
 def format_question_stem(line, q_no, q_roll):
     stem_text = strip_stem_text(line)
-    f_q_roll = q_roll_generator(q_roll)
+    f_q_roll = q_roll_generator(q_roll + q_no)
     f_stem = "{question_no}. {question_roll}. {stem_text}"
     return f_stem.format(question_no=q_no,
                          question_roll=f_q_roll,

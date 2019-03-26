@@ -23,8 +23,9 @@ class TestParsingUtils(unittest.TestCase):
         self.assertEqual(strip_choice_text("*(A) this is an option"), "this is an option")
         self.assertEqual(strip_choice_text("*A) this is an option"), "this is an option")
         self.assertEqual(strip_choice_text("A) this is an option"), "this is an option")
-        self.assertEqual(strip_choice_text("A) this is an option (this)"), "this is an option (this)")
-        self.assertEqual(strip_choice_text("*(B) this is an option (A)"), "this is an option (A)")
+        self.assertEqual(strip_choice_text("A) This is an option (this)"), "This is an option (this)")
+        self.assertEqual(strip_choice_text("*(B) This is an option (A)"), "This is an option (A)")
+        self.assertEqual(strip_choice_text("*This is an option"), "This is an option")
 
     def test_format_answer_choice(self):
         self.assertEqual(format_answer_choice("(A) this is an option", 1, 0), "(A)this is an option")
@@ -42,9 +43,10 @@ class TestParsingUtils(unittest.TestCase):
         self.assertEqual(strip_stem_text("3. this question"), "this question")
         self.assertEqual(strip_stem_text("Q. this question"), "this question")
         self.assertEqual(strip_stem_text("22 . this question"), "this question")
-        self.assertEqual(strip_stem_text("q . this question  "), "this question")
+        self.assertEqual(strip_stem_text("q. this question  "), "this question")
+        self.assertEqual(strip_stem_text("q. this question.  "), "this question.")
 
     def test_format_question_stem(self):
-        self.assertEqual(format_question_stem("this question", 1, 23), "1. 023. this question")
-        self.assertEqual(format_question_stem("this question", 23, 23), "23. 023. this question")
+        self.assertEqual(format_question_stem("this question", 1, 23), "1. 024. this question")
+        self.assertEqual(format_question_stem("this question", 23, 23), "23. 046. this question")
 
