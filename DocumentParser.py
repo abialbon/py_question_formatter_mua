@@ -9,7 +9,7 @@ class DocumentParser:
         self.filename = file_path
         self.q_count = 0
         self.options = options
-        self.parse(open(file_path))
+        self.parse(open(file_path, 'r', encoding='utf-8-sig'))
 
     def parse(self, f_stream):
         while True:
